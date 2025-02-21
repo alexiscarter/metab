@@ -1,6 +1,5 @@
 ## Workshop
 eDNA metabarcoding: From raw data to RDA
-_(Currently in development)_
 
 ## Description
 
@@ -25,6 +24,10 @@ install.packages(c('ggplot2', 'vegan', 'gtools')
 ```
 
 ## Tutorials
+
+TD TSE dada + intro metabarcoding [English]  
+[https://alexiscarter.github.io/metab/Dada_script_TSE_EN.html](https://alexiscarter.github.io/metab/Dada_script_TSE_EN.html)   
+
 [Bilingual Français-English]  
 Dada: [https://alexiscarter.github.io/metab/Dada_script.html](https://alexiscarter.github.io/metab/Dada_script.html)  
 Phyloseq: [https://alexiscarter.github.io/metab/Phyloseq_script.html](https://alexiscarter.github.io/metab/Phyloseq_script.html)
@@ -49,8 +52,10 @@ setwd("YourPath/metab-master")
 ```
 
 ## Authors
-Simon Morvan and Alexis Carteron,
+Simon Morvan
+Alexis Carteron
 Université de Montréal
+École d'Ingénieurs de PURPAN  
 
 ## Data  
 Original data can be found [here](https://doi.org/10.5281/zenodo.3631861), from Carteron A, Beigas M, Joly S, Turner B L, Laliberté E. 2020. Temperate forests dominated by arbuscular or ectomycorrhizal fungi are characterized by strong shifts from saprotrophic to mycorrhizal fungi with increasing soil depth. Microbial Ecology. [DOI](https://doi.org/10.1007/s00248-020-01540-7) [PDF](/article/AAM_MicrobEcol_Carteron_etal_2020.pdf)

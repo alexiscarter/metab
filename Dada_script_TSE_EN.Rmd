@@ -11,6 +11,9 @@ output:
 
 <br>
 
+Biodiversity measurements incorporate many recently developed technologies, such as remote sensing or DNA sequencing, which is particularly useful for small organisms. However, these techniques require numerous processing steps that can influence the final results. In this exercise, we will explore certain parameters that can be adjusted and their impact on the diversity measures.
+
+<br>
 
 # General introduction on metabarcoding
 <br>
@@ -24,6 +27,7 @@ Traditional vs eDNA
 ![](Other_materials/elbrecht_slide.png)
 </center>
 <br>
+<br>
 In eDNA metabarcoding, we use short DNA sequences called primers to target specific genes in environmental samples. These primers come in pairs:
 - Forward primer: It binds to one end of the DNA strand and starts copying in one direction.
 - Reverse primer: It binds to the opposite end of the complementary strand and copies in the other direction.
@@ -33,9 +37,10 @@ When sequencing, we get DNA reads from both directions (forward and reverse sequ
 ![](Other_materials/primers.png) 
 </center>
 <br>
+<br>
 
 There are several steps in DNA metabarcoding, see figure below from [Lamb et al., 2019](https://onlinelibrary.wiley.com/doi/abs/10.1111/mec.14920).  
-Note that DNA metabarcoding is not quantitative per se, as potential biases can be present at each steps.
+Note that DNA metabarcoding is not quantitative per se (i.e. to get species abundance data), as potential biases can be present at each steps.
 
 <center>
 ![](Other_materials/steps_limits.png) 
@@ -52,18 +57,6 @@ DADA2 is a bioinformatics pipeline created by [Callahan et al., 2016](https://ww
 DADA2 has two major features which distinguishes it from other commonly used pipelines. On one hand, it will proceed to the modeling of the sequencing error  which is supposed to make it possible to distinguish mutant sequences from erroneous sequences. On the other hand, unlike other pipelines, DADA2 does not cluster 97% similar sequences in Operational Taxonomy Units (OTUs). Its **Amplicon Sequence Variants** (ASVs) are not grouped if the sequences are not 100% identical. See figure above. 
 
 
-Originally constructed for 16S marker gene sequences (Bacteria), we will use it with ITS marker gene (Fungi) sequences from Illumina MiSEQ 2x300 bp paired-end sequencing. To speed up the execution of each step, we randomly sub-sampled a dataset in order to only keep 1000 sequences per sample.
-Finally, *Redde Caesari quae sunt Caesaris* : this tutorial was largely inspired by the original [DADA2 tutorial](https://benjjneb.github.io/dada2/tutorial.html).
-
-
-In general, before starting this pipeline, we must take some precautions:
-
-1.   Samples must be **demultiplexed**: split into individual per-sample fastq files.  
-2.    If the sequences are paired-end, the forward and reverse sequences have to be in distinct fastq files but must contain reads in **matched order**.
-3.   The nucleotides which are not part of the amplicon (primers and adapters) have to be removed. They can also be removed at the filtring step.  
-4.    Most functions have a multithreading option that allows faster computing time by accessing multiple processors. Just specify *multithread = TRUE* to enable it. <span style="color:red">Warning, this option does not work under Windows.
-</span>
-
 This figure taken from [Hugerth and Andersson, 2017](https://www.ncbi.nlm.nih.gov/pubmed/28928718) illustrates the theoretical difference between OTUs and ASV. Each color represents a clade. Yellow stars indicate mutations, red stars indicate amplification or sequencing errors. The size of the space between the sequences indicates their clustering.
 
 <center>
@@ -77,11 +70,24 @@ This figure taken from [Hugerth and Andersson, 2017](https://www.ncbi.nlm.nih.go
 **(A) 100 % identity clustered OTUs.**   
 The slightest variation of sequences causes the creation of a new group. The mutant sequences and the erroneous sequences are treated similarly.   
 **(B) 97 % identity clustered OTUs.**   
-A wider grouping allows to no longer consider the erroneous sequences, however the mutant sequences will also be clustered in the consensus group. 
+A wider grouping allows to no longer consider the erroneous sequences, however the mutant sequences will also be clustered in the consensus group.  
 **(C) ASVs.** 
 Learning the error rates theoretically enables to group the erroneous sequences with the consensus sequences. In contrast, the mutant sequences are considered integrally.
 
 <br>
+<br>
+
+DADA2 was originally constructed for 16S marker gene sequences (Bacteria), but we will use it with ITS marker gene (Fungi) sequences from Illumina MiSEQ 2x300 bp paired-end sequencing. To speed up the execution of each step, we randomly sub-sampled a dataset in order to only keep 1000 sequences per sample.
+Finally, *Redde Caesari quae sunt Caesaris* : this tutorial was largely inspired by the original [DADA2 tutorial](https://benjjneb.github.io/dada2/tutorial.html).
+
+
+In general, before starting this pipeline, we must take some precautions:
+
+1. Samples must be **demultiplexed**: split into individual per-sample fastq files.  
+2. If the sequences are paired-end, the forward and reverse sequences have to be in distinct fastq files but must contain reads in **matched order**.
+3. The nucleotides which are not part of the amplicon (primers and adapters) have to be removed. They can also be removed at the filtring step.  
+4. Most functions have a multithreading option that allows faster computing time by accessing multiple processors. Just specify *multithread = TRUE* to enable it. <span style="color:red">Warning, this option does not work under Windows.
+</span>
 
 <center>
 
@@ -484,7 +490,8 @@ We obtained **`r length(unname(taxotab[,7]))`** different ASVs of which **`r len
 
 <br>
 
-#### Guidelines	to	improve	the	reliability	of	ecological	results	when	analysing	eDNA	metabarcoding	data
+# Guidelines
+For improving	the	reliability	of	ecological	results	when	analysing	eDNA	metabarcoding	data
 
 <center>
 ![](Other_materials/ecoquestions.png)
