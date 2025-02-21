@@ -227,7 +227,7 @@ pourc_disc
 <br>
 
 >#### <span style="color:red">CHALLENGE</span> 
-Modify some of parameters of the filtering process and check the effects on the number of reads that passed. For example, try to have reads of better quality. See ?filterAndTrim for more details.
+Modify some parameters of the filtering process and check the effects on the number of reads that passed. For example, try to have reads of better quality. See ?filterAndTrim for more details.
 
 <br>
 
@@ -331,7 +331,7 @@ mergers <- mergePairs(dadaFs, derepFs, dadaRs, derepRs,
 <br>
 
 >#### <span style="color:red">CHALLENGE</span> 
-What happen in terms of number of sequences or ASV richness if you that a minimum overlap of 12 is too short? See ?mergePairs for more details.
+What happen in terms of number of sequences or ASV richness if you think that a minimum overlap of 12 is too short? See ?mergePairs for more details.
 
 <br>
 
