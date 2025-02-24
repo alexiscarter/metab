@@ -11,7 +11,7 @@ output:
 
 <br>
 
-Biodiversity measurements incorporate many recently developed technologies, such as remote sensing or DNA sequencing, which is particularly useful for small organisms. However, these techniques require numerous processing steps that can influence the final results. In this exercise, we will explore certain parameters that can be adjusted and their impact on the diversity measures.
+Biodiversity measurements incorporate many recently developed technologies, such as remote sensing, AI-powered image recognition but also DNA metabarcoding, which is particularly useful for small organisms. However, these techniques require numerous processing steps that can influence the final results. *In this exercise, we will explore certain parameters of the bio-informatic pipelines that can be adjusted and their impact on the diversity measures.*
 
 <br>
 
@@ -28,10 +28,10 @@ Traditional vs eDNA
 </center>
 <br>
 <br>
-In eDNA metabarcoding, we use short DNA sequences called primers to target specific genes in environmental samples. These primers come in pairs:
+NB: In eDNA metabarcoding, we use short DNA sequences called primers to target specific genes in environmental samples. These primers come in pairs:
 - Forward primer: It binds to one end of the DNA strand and starts copying in one direction.
 - Reverse primer: It binds to the opposite end of the complementary strand and copies in the other direction.
-When sequencing, we get DNA reads from both directions (forward and reverse sequences) which help improve accuracy by overlapping and confirming each other and allow to find a more precise taxonomy (e.g. name of the species).
+When sequencing, we get DNA reads from both directions (forward and reverse sequences) which help improve accuracy by overlapping and confirming each other and allow to find a more precise taxonomy (e.g. name of the species). (see figure below).
 
 <center>
 ![](Other_materials/primers.png) 
@@ -40,24 +40,26 @@ When sequencing, we get DNA reads from both directions (forward and reverse sequ
 <br>
 
 There are several steps in DNA metabarcoding, see figure below from [Lamb et al., 2019](https://onlinelibrary.wiley.com/doi/abs/10.1111/mec.14920).  
-Note that DNA metabarcoding is not quantitative per se (i.e. to get species abundance data), as potential biases can be present at each steps.
+NB: that DNA metabarcoding is not quantitative per se (i.e. to get species abundance data), as potential biases can be present at each steps.
 
 <center>
 ![](Other_materials/steps_limits.png) 
 </center>
 <br>
+<br>
 
-BUT is it reliable for measuring the specific richness ?  
+It is not reliable for abundance data but *is it reliable for measuring the species richness* (i.e. the number of species)? What are the steps and their impacts in bio-informatic pipelines?  
+Species richness is a component of biodiversity and used for example to determine biodiversity hotspots (amongst others parameters, see [Sonne & Rahbek, 2024](https://www.pnas.org/doi/10.1073/pnas.2313106121)).  
 <br>
 
 # Bio-informatics with DADA2
 
 DADA2 is a bioinformatics pipeline created by [Callahan et al., 2016](https://www.ncbi.nlm.nih.gov/pubmed/27214047). It consists is a series of steps which filter the raw sequences obtained with Illumina sequencing. The final step is to obtain the taxonomy of the sequences that have been filtered in order to study the ecological community.  
 
-DADA2 has two major features which distinguishes it from other commonly used pipelines. On one hand, it will proceed to the modeling of the sequencing error  which is supposed to make it possible to distinguish mutant sequences from erroneous sequences. On the other hand, unlike other pipelines, DADA2 does not cluster 97% similar sequences in Operational Taxonomy Units (OTUs). Its **Amplicon Sequence Variants** (ASVs) are not grouped if the sequences are not 100% identical. See figure above. 
+DADA2 has two major features which distinguishes it from other pipelines. On one hand, it will proceed to the modeling of the sequencing error  which is supposed to make it possible to distinguish mutant sequences from erroneous sequences. On the other hand, DADA2 does not cluster 97% similar sequences in Operational Taxonomy Units (OTUs). Its **Amplicon Sequence Variants** (ASVs) are not grouped if the sequences are not 100% identical when errors are corrected. See figure below. 
 
 
-This figure taken from [Hugerth and Andersson, 2017](https://www.ncbi.nlm.nih.gov/pubmed/28928718) illustrates the theoretical difference between OTUs and ASV. Each color represents a clade. Yellow stars indicate mutations, red stars indicate amplification or sequencing errors. The size of the space between the sequences indicates their clustering.
+This figure taken from [Hugerth and Andersson, 2017](https://www.ncbi.nlm.nih.gov/pubmed/28928718) illustrates the theoretical difference between OTUs and ASV. Each color represents a clade (e.g. a species). Yellow stars indicate mutations, red stars indicate amplification or sequencing errors. The size of the space between the sequences indicates their clustering.
 
 <center>
 
@@ -68,11 +70,13 @@ This figure taken from [Hugerth and Andersson, 2017](https://www.ncbi.nlm.nih.go
 <br>
 
 **(A) 100 % identity clustered OTUs.**   
-The slightest variation of sequences causes the creation of a new group. The mutant sequences and the erroneous sequences are treated similarly.   
+The slightest variation of sequences causes the creation of a new group. The mutant sequences and the erroneous sequences are treated similarly.
 **(B) 97 % identity clustered OTUs.**   
 A wider grouping allows to no longer consider the erroneous sequences, however the mutant sequences will also be clustered in the consensus group.  
 **(C) ASVs.** 
-Learning the error rates theoretically enables to group the erroneous sequences with the consensus sequences. In contrast, the mutant sequences are considered integrally.
+Learning the error rates theoretically enables to group the erroneous sequences with the consensus sequences. In contrast, the mutant sequences are considered integrally.  
+
+Question: Which approach results in more groups? Why is it problematic?
 
 <br>
 <br>
@@ -472,6 +476,7 @@ save(taxotab, file = "data/taxotab.rdata")
 #load("data/taxotab.rdata")
 ```
 <br>
+
 >#### <span style="color:red">CHALLENGE</span> 
 If I use an updated database, will the taxonomy table different?
 
